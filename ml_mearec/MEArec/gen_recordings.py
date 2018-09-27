@@ -102,6 +102,7 @@ class RecordingGenerator:
 
         idxs_cells = select_templates(locs, eaps, bin_cat, n_exc, n_inh, bound_x=depth_lim, min_amp=min_amp,
                                       min_dist=min_dist, verbose=False)
+        print(idxs_cells)
         template_celltypes = celltypes[idxs_cells]
         template_locs = locs[idxs_cells]
         templates_bin = bin_cat[idxs_cells]

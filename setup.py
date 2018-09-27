@@ -10,7 +10,7 @@ pkg_name='ml_mearec'
 
 setuptools.setup(
     name=pkg_name,
-    version="0.1.3",
+    version="0.1.4",
     author="Jeremy Magland",
     author_email="",
     description="MountainLab wrapper for MEArec",
@@ -45,7 +45,8 @@ setuptools.setup(
     conda={
         "build_number":0,
         "build_script":[
-            "python -m pip install --no-deps --ignore-installed .",
+            #"python -m pip install --no-deps --ignore-installed .",
+            "python -m pip install .",
             "CMD=\"ln -sf $SP_DIR/"+pkg_name+" `CONDA_PREFIX=$PREFIX ml-config package_directory`/"+pkg_name+"\"",
             "echo $CMD",
             "$CMD"

@@ -21,7 +21,7 @@ class gen_spiketrains(Processor):
     """
         Generate spiketrains
     """
-    VERSION='0.1.2'
+    VERSION='0.1.3'
 
     spiketrains_out = Output('MEArec spiketrains .npy output file -- neo format')
 
@@ -68,7 +68,7 @@ class gen_recording(Processor):
     """
         Generate a MEArec recording
     """
-    VERSION='0.1.3'
+    VERSION='0.1.4'
 
     templates = Input('MEArec templates .hdf5 file - generated using utils/templates_to_hdf5.py - if omitted, will download default',optional=True)
     spiketrains = Input('MEArec spiketrains .npy file')
@@ -89,12 +89,12 @@ class gen_recording(Processor):
     sdrand = FloatParameter('standard deviation of gaussian modulation',optional=True,default=0.05)
     chunk_duration = FloatParameter('chunk duration in s for chunk processing (if 0 the entire recordings are generated at once)',optional=True,default=0)
     overlap = BoolParameter('if True it annotates overlapping spikes',optional=True,default=False)
+    seed = IntegerParameter('Randomization seed -- use >0 or use <=0 to use a different seed every time',optional=True,default=1)
 
     def run(self):
         #tmpdir=os.environ.get('ML_PROCESSOR_TEMPDIR')
         #if not tmpdir:
         #    raise Exception('Environment variable not set: ML_PROCESSOR_TEMPDIR')
-
 
         if not self.templates:
             print('Downloading templates (if needed)...')
@@ -105,6 +105,9 @@ class gen_recording(Processor):
             templates_path=self.templates
         print('Using templates file: '+templates_path)
 
+        if self.seed<=0:
+            self.seed=np.random.randint(1, 10000),
+
         params_dict=dict(
             min_dist=self.min_dist,
             min_amp=self.min_amp,
@@ -113,7 +116,7 @@ class gen_recording(Processor):
             modulation=self.modulation,
             chunk_duration=self.chunk_duration,
             filter=self.filter,
-            seed=np.random.randint(1, 10000),
+            seed=self.seed,
             cutoff=self.cutoff,
             overlap_threshold=self.overlap_threshold,
             n_jitters=self.n_jitters,
@@ -126,7 +129,7 @@ class gen_recording(Processor):
         )
         params_dict['excitatory']=['STPC', 'TTPC1', 'TTPC2', 'UTPC']
         params_dict['inhibitory']=['BP', 'BTC', 'ChC', 'DBC', 'LBC', 'MC', 'NBC', 'NGC', 'SBC']
-        
+
         templates_data={}
         with h5py.File(templates_path,'r') as F:
             templates_data['info']=json.loads(str(F['info'][()]))

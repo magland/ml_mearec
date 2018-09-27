@@ -10,7 +10,7 @@ pkg_name='ml_mearec'
 
 setuptools.setup(
     name=pkg_name,
-    version="0.1.2",
+    version="0.1.3",
     author="Jeremy Magland",
     author_email="",
     description="MountainLab wrapper for MEArec",

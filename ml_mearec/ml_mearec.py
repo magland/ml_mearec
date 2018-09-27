@@ -11,8 +11,8 @@ from mlprocessors.core import Input, Output, Processor, IntegerParameter, FloatP
 import os
 import h5py
 import numpy as np
-from gen_spiketrains import SpikeTrainGenerator
-from gen_recordings import RecordingGenerator
+from MEArec import SpikeTrainGenerator
+from MEArec import RecordingGenerator
 import json
 from mountainlab_pytools import mlproc as mlp
 
@@ -38,9 +38,9 @@ class gen_spiketrains(Processor):
     ref_per = FloatParameter('Refractory period to remove spike violation (ms)',optional=True,default=2)
 
     def run(self):
-        tmpdir=os.environ.get('ML_PROCESSOR_TEMPDIR')
-        if not tmpdir:
-            raise Exception('Environment variable not set: ML_PROCESSOR_TEMPDIR')
+        #tmpdir=os.environ.get('ML_PROCESSOR_TEMPDIR')
+        #if not tmpdir:
+        #    raise Exception('Environment variable not set: ML_PROCESSOR_TEMPDIR')
     
         params_dict=dict(
             duration=self.duration,
@@ -91,9 +91,9 @@ class gen_recording(Processor):
     overlap = BoolParameter('if True it annotates overlapping spikes',optional=True,default=False)
 
     def run(self):
-        tmpdir=os.environ.get('ML_PROCESSOR_TEMPDIR')
-        if not tmpdir:
-            raise Exception('Environment variable not set: ML_PROCESSOR_TEMPDIR')
+        #tmpdir=os.environ.get('ML_PROCESSOR_TEMPDIR')
+        #if not tmpdir:
+        #    raise Exception('Environment variable not set: ML_PROCESSOR_TEMPDIR')
 
 
         if not self.templates:

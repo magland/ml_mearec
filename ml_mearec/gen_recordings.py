@@ -18,7 +18,7 @@ from copy import copy
 
 import MEAutility as MEA
 import click
-from tools import *
+from .tools import *
 
 class RecordingGenerator:
     def __init__(self, templates_data, spiketrains_data, params, overlap=False, optional_info=dict(template_folder='',spiketrain_folder='')):

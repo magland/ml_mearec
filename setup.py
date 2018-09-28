@@ -10,7 +10,7 @@ pkg_name='ml_mearec'
 
 setuptools.setup(
     name=pkg_name,
-    version="0.1.5",
+    version="0.1.6",
     author="Jeremy Magland",
     author_email="",
     description="MountainLab wrapper for MEArec",
@@ -36,7 +36,8 @@ setuptools.setup(
         'pyyaml',
         'numpy',
         'mlprocessors',
-        'mountainlab_pytools'
+        'mountainlab_pytools',
+        'prompt_toolkit'
     ],
     classifiers=(
         "Programming Language :: Python :: 3",
